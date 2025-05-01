@@ -5,11 +5,7 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  console.log('test',email,password);
-  const users = await User.find();
-  console.log('users',users)
   const user = await User.findOne({ email });
-  console.log('user',user)
   
   if (!user) return res.status(401).json({ error: 'Invalid credentials' });
 

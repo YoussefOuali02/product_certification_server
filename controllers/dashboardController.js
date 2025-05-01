@@ -4,9 +4,9 @@ exports.getDashboardURL = async (req, res) => {
     let url = '';
   
     if (role === 'CertificationProcess') {
-      url = process.env.QLIK_URL_FULL;
+      url = process.env.CP_URL;
     } else if (role === 'TC') {
-      url = process.env.QLIK_URL_TC;
+      url = process.env.TC_URL;
     } else {
       return res.status(403).json({ error: 'No dashboard for this role' });
     }

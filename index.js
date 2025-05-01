@@ -15,4 +15,11 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/dashboard-url', require('./routes/dashboardRoutes'));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🟢 Server running on port ${PORT}`));
+const ENV = process.env.ENV || 'local';
+app.listen(PORT, () => {
+    if (ENV === 'local') {
+      console.log(`🟢 Server running in LOCAL mode on port ${PORT}`);
+    } else {
+      console.log(`🟢 Server running in PRODUCTION mode`);
+    }
+  });
