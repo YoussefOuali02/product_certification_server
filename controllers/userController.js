@@ -15,10 +15,15 @@ exports.createUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
   const user = new User({ firstName, lastName, email, phone, role, password: hashedPassword });
+
   await user.save();
 
-  await sendEmail(email, 'Temporary Password', `Your password: ${tempPassword}`);
-
+  await sendEmail(
+    email,
+    `Welcome To Product Certification Dashboard`,
+    `Hello ${firstName}, Please login with your email and change this password.\n\nYour temporary password is: ${tempPassword}\n\nThank you!`
+  );
+  
   res.status(201).json({ message: 'User created and email sent' });
 };
 

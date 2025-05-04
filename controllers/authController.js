@@ -20,3 +20,20 @@ exports.login = async (req, res) => {
 
   res.json({ token });
 };
+
+exports.changePassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const userId = req.user.id;
+
+  if (!newPassword) return res.status(400).json({ error: 'New password required' });
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  await User.findByIdAndUpdate(userId, {
+    password: hashedPassword,
+    mustChangePassword: false
+  });
+
+  res.json({ message: 'Password changed successfully' });
+};
+
